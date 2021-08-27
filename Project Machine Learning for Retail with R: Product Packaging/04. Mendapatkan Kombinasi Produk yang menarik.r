@@ -1,0 +1,6 @@
+library(arules)
+transaksi_tabular <- read.transactions(file="transaksi_dqlab_retail.tsv", format="single", sep="\t", cols=c(1,2), skip=1)
+combination <- apriori(transaksi_tabular, parameter = list(supp=10/length(transaksi_tabular), confidence=0.5, minlen=2, maxlen=3))
+combination_result <- head(combination, n=10, by="lift")
+inspect(combination_result)
+write(combination_result, file="kombinasi_retail.txt")
